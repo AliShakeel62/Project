@@ -25,10 +25,26 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import SingleSelectTreeView from "../Components/Tree-View";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import TransferStudentScreen from "../Pages/Student/Transfer-Student-Screen";
 import StudentAddEdit from "../Pages/Student/Add-Edit";
 import StudentList from "../Pages/Student/Student-List";
+import TeacherList from "../Pages/Teacher/TeacherList";
+import TeacherAddEdit from "../Pages/Teacher/TeacherAdd";
+import TeacherAllocation from "../Pages/Teacher/TeacherAllowcation";
+import SubjectList from "../Pages/Subject/SubjectList";
+import SubjectAdd from "../Pages/Subject/SubjectAdd";
+import Rejistration from "../Pages/School/Registration";
+import Addmission from "../Pages/Admission/Admission";
+import Classlist from "../Pages/Class/Class-list";
+import ClassFrom from "../Pages/Class/Class-from";
+import ExamResult from "../Pages/Exam/Exam-Result";
+import ExamSchedule from "../Pages/Exam/Exam-Schedule";
+import FeeStructure from "../Pages/Fees/Fee-Structure";
+import FeeSubmition from "../Pages/Fees/Fee-Submition";
+import FeeVouchner from "../Pages/Fees/Fee-Voucher";
+import SyllabusFrom from "../Pages/Syllabus/Syllabus-From";
+import Syllabuslist from "../Pages/Syllabus/Syllabus-list";
 const drawerWidth = 240;
 
 interface Props {
@@ -83,6 +99,7 @@ export default function ResponsiveDrawer(props: any) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
   const { value1, value2, path, path2 } = props;
+ const navigate = useNavigate()
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
@@ -142,19 +159,107 @@ export default function ResponsiveDrawer(props: any) {
       child: [
         {
           name: "Teacher-Add/Edit",
-          route: "StudentAdd",
+          route: "TeacherAdd",
         },
         {
           name: "TeacherList",
-          route: "StudentList",
+          route: "TeacherList",
         },
-        { name: "TeacherAllowlocation", route: "StudentTransfer" },
+        { name: "TeacherAllowlocation", route: "TeacherAllowcation" },
+      ],
+    },
+    {
+      NodeName: "Subject",
+      child: [
+        {
+          name: "Subject-Add/Edit",
+          route: "SubjectAdd",
+        },
+        {
+          name: "SubjectList",
+          route: "SubjectList",
+        },
+      ],
+    },
+    {
+      NodeName: "School",
+      child: [
+        {
+          name: "Rejistration",
+          route: "Rejistration",
+        },
+       
+      ],
+    },
+    {
+      NodeName: "Admission",
+      child: [
+        {
+          name: "Admission-form",
+          route: "Admission",
+        },
+      ],
+    },
+    {
+      NodeName: "Class",
+      child: [
+        {
+          name: "Class-from",
+          route: "Classform",
+        },
+         {
+          name: "Class-list",
+          route: "Classlist",
+        },
+      ],
+    },
+    {
+      NodeName: "Exam",
+      child: [
+        {
+          name: "Exam-Result",
+          route: "ExamResult",
+        },
+         {
+          name: "Exam-Schedule",
+          route: "ExamSchedule",
+        },
+      ],
+    },
+    {
+      NodeName: "Fees",
+      child: [
+        {
+          name: "Fee-Structure",
+          route: "FeeStructure",
+        },
+         {
+          name: "Fee-Submition",
+          route: "FeeSubmition",
+        },
+        {
+          name: "Fee-Voucher",
+          route: "FeeVoucher",
+        },
+      ],
+    },
+    {
+      NodeName: "Syllabus",
+      child: [
+        {
+          name: "Syllabus-from",
+          route: "SyllabusFrom",
+        },
+         {
+          name: "Syllabus-list",
+          route: "Syllabuslist",
+        },
       ],
     },
   ]);
 
   const drawer = (
-    <div>
+    <div >
       <Toolbar />
       <Divider />
       <SingleSelectTreeView Drawers={Drawers} />
@@ -171,7 +276,7 @@ export default function ResponsiveDrawer(props: any) {
         ))}
       </List> */}
       <Divider />
-      <List>
+      {/* <List>
         {["All mail", "Trash", "Spam"].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
@@ -182,7 +287,7 @@ export default function ResponsiveDrawer(props: any) {
             </ListItemButton>
           </ListItem>
         ))}
-      </List>
+      </List> */}
     </div>
   );
 
@@ -206,8 +311,8 @@ export default function ResponsiveDrawer(props: any) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={()=>navigate('/Login')}>Login</MenuItem>
+      <MenuItem onClick={()=>navigate('/')}>Dashbord</MenuItem>
     </Menu>
   );
 
@@ -273,7 +378,7 @@ export default function ResponsiveDrawer(props: any) {
           ml: { sm: `${drawerWidth}px` },
         }}
       >
-        <Toolbar>
+        <Toolbar className="bg-black">
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -289,7 +394,7 @@ export default function ResponsiveDrawer(props: any) {
             component="div"
             sx={{ display: { xs: "none", sm: "block" } }}
           >
-            MUI
+          EduManage
           </Typography>
           <Search>
             <SearchIconWrapper>
@@ -302,7 +407,7 @@ export default function ResponsiveDrawer(props: any) {
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <IconButton
+            {/* <IconButton
               size="large"
               aria-label="show 4 new mails"
               color="inherit"
@@ -319,7 +424,7 @@ export default function ResponsiveDrawer(props: any) {
               <Badge badgeContent={17} color="error">
                 <NotificationsIcon />
               </Badge>
-            </IconButton>
+            </IconButton> */}
             <IconButton
               size="large"
               edge="end"
@@ -350,8 +455,9 @@ export default function ResponsiveDrawer(props: any) {
       {renderMenu}
       <Box
         component="nav"
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 }  }}
         aria-label="mailbox folders"
+        
       >
         <Drawer
           container={container}
@@ -369,6 +475,7 @@ export default function ResponsiveDrawer(props: any) {
               width: drawerWidth,
             },
           }}
+          
         >
           {drawer}
         </Drawer>
@@ -384,7 +491,6 @@ export default function ResponsiveDrawer(props: any) {
           open
         >
           {drawer}
-         
         </Drawer>
       </Box>
       <Box
@@ -401,6 +507,22 @@ export default function ResponsiveDrawer(props: any) {
           <Route path="StudentTransfer" element={<TransferStudentScreen />} />
           <Route path="StudentAdd" element={<StudentAddEdit />} />
           <Route path="StudentList" element={<StudentList />} />
+          <Route path="TeacherList" element={<TeacherList />} />
+          <Route path="TeacherAdd" element={<TeacherAddEdit />} />
+          <Route path="TeacherAllowcation" element={<TeacherAllocation />} />
+          <Route path="SubjectList" element={<SubjectList />} />
+          <Route path="SubjectAdd" element={<SubjectAdd />} />
+          <Route path="Rejistration" element={<Rejistration />} />
+          <Route path="Admission" element={<Addmission />} />
+          <Route path="Classform" element={<ClassFrom />} />
+          <Route path="Classlist" element={<Classlist />} />
+          <Route path="ExamResult" element={<ExamResult />} />
+          <Route path="ExamSchedule" element={<ExamSchedule />} />
+          <Route path="FeeStructure" element={<FeeStructure />} />
+          <Route path="FeeSubmition" element={<FeeSubmition />} />
+          <Route path="FeeVoucher" element={<FeeVouchner />} />
+          <Route path="SyllabusFrom" element={<SyllabusFrom />} />
+          <Route path="Syllabuslist" element={<Syllabuslist />} />
         </Routes>
       </Box>
     </Box>
