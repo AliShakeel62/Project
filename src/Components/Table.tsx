@@ -1,12 +1,14 @@
-import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import * as React from "react";
+import { styled } from "@mui/material/styles";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -19,56 +21,62 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
+  "&:nth-of-type(odd)": {
     backgroundColor: theme.palette.action.hover,
   },
-  // hide last border
-  '&:last-child td, &:last-child th': {
+  "&:last-child td, &:last-child th": {
     border: 0,
   },
 }));
 
-function createData(
-  name: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number,
-) {
-  return { name, calories, fat, carbs, protein };
-}
+export default function CustomizedTables(props: any) {
+  const { temp, value1, value2, value3, value4, value5, value6, value7, value8, value9, value10, value11 } = props;
+  const navigate = useNavigate();
 
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
+  const handleEdit = (row: any) => {
+    navigate("/Home/StudentEdit", { state: { student: row } });
+  };
 
-export default function CustomizedTables() {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Dessert (100g serving)</StyledTableCell>
-            <StyledTableCell align="right">Calories</StyledTableCell>
-            <StyledTableCell align="right">Fat&nbsp;(g)</StyledTableCell>
-            <StyledTableCell align="right">Carbs&nbsp;(g)</StyledTableCell>
-            <StyledTableCell align="right">Protein&nbsp;(g)</StyledTableCell>
+            <StyledTableCell>{value1}</StyledTableCell>
+            <StyledTableCell align="center">{value2}</StyledTableCell>
+            <StyledTableCell align="center">{value3}</StyledTableCell>
+            <StyledTableCell align="center">{value4}</StyledTableCell>
+            <StyledTableCell align="center">{value5}</StyledTableCell>
+            <StyledTableCell align="center">{value6}</StyledTableCell>
+            <StyledTableCell align="center">{value7}</StyledTableCell>
+            <StyledTableCell align="center">{value8}</StyledTableCell>
+            <StyledTableCell align="center">{value9}</StyledTableCell>
+            <StyledTableCell align="center">{value10}</StyledTableCell>
+            <StyledTableCell align="center">{value11}</StyledTableCell>
+            <StyledTableCell align="center">Edit</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow key={row.name}>
+          {temp.map((row: any) => (
+            <StyledTableRow key={row.firstName}>
               <StyledTableCell component="th" scope="row">
-                {row.name}
+                {row.firstName}
               </StyledTableCell>
-              <StyledTableCell align="right">{row.calories}</StyledTableCell>
-              <StyledTableCell align="right">{row.fat}</StyledTableCell>
-              <StyledTableCell align="right">{row.carbs}</StyledTableCell>
-              <StyledTableCell align="right">{row.protein}</StyledTableCell>
+              <StyledTableCell align="center">{row.middleName}</StyledTableCell>
+              <StyledTableCell align="center">{row.lastName}</StyledTableCell>
+              <StyledTableCell align="center">{row.fatherName}</StyledTableCell>
+              <StyledTableCell align="center">{row.motherName}</StyledTableCell>
+              <StyledTableCell align="center">{row.gender}</StyledTableCell>
+              <StyledTableCell align="center">{row.email}</StyledTableCell>
+              <StyledTableCell align="center">{row.class}</StyledTableCell>
+              <StyledTableCell align="center">{row.rollNumber}</StyledTableCell>
+              <StyledTableCell align="center">{row.birthDate}</StyledTableCell>
+              <StyledTableCell align="center">{row.section}</StyledTableCell>
+              <StyledTableCell align="center">
+                <Button variant="contained" color="primary" onClick={() => handleEdit(row)}>
+                  Edit
+                </Button>
+              </StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>

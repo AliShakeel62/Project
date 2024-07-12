@@ -45,6 +45,7 @@ import FeeSubmition from "../Pages/Fees/Fee-Submition";
 import FeeVouchner from "../Pages/Fees/Fee-Voucher";
 import SyllabusFrom from "../Pages/Syllabus/Syllabus-From";
 import Syllabuslist from "../Pages/Syllabus/Syllabus-list";
+import EditStudent from "../Pages/Student/Student-Edit";
 const drawerWidth = 240;
 
 interface Props {
@@ -148,8 +149,12 @@ export default function ResponsiveDrawer(props: any) {
           route: "StudentAdd",
         },
         {
-          name: "SrudentList",
+          name: "StudentList",
           route: "StudentList",
+        },
+        {
+          name: "Studentedit",
+          route: "StudentEdit",
         },
         { name: "StudentTransfer", route: "StudentTransfer" },
       ],
@@ -506,6 +511,7 @@ export default function ResponsiveDrawer(props: any) {
         <Routes>
           <Route path="StudentTransfer" element={<TransferStudentScreen />} />
           <Route path="StudentAdd" element={<StudentAddEdit />} />
+          <Route path="StudentEdit" element={<EditStudent />} />
           <Route path="StudentList" element={<StudentList />} />
           <Route path="TeacherList" element={<TeacherList />} />
           <Route path="TeacherAdd" element={<TeacherAddEdit />} />

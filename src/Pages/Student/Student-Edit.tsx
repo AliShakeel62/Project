@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent, useEffect } from "react";
 import { Box, TextField, Grid, MenuItem, Button } from "@mui/material";
-import { sentdata, getdata } from "../../Config/Firebasemethod";
-import CustomizedTables from "../../Components/Table";
+import { useLocation, useNavigate } from "react-router-dom";
+import { getdata, sentdata } from "../../Config/Firebasemethod";
 
 interface StudentRecord {
   firstName: string;
@@ -17,81 +17,39 @@ interface StudentRecord {
   class: string;
 }
 
-export default function StudentTransfer() {
-  const [formValues, setFormValues] = useState<StudentRecord>({
-    firstName: "",
-    middleName: "",
-    birthDate: "",
-    lastName: "",
-    fatherName: "",
-    motherName: "",
-    gender: "",
-    email: "",
-    section: "",
-    rollNumber: "",
-    class: "",
-  });
+export default function EditStudent() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { student } = location.state;
+  const [formValues, setFormValues] = useState<StudentRecord>(student);
 
-  const [temp, setTemp] = useState<StudentRecord[]>([]);
-
-  const fetchStudentData = () => {
-    return new Promise((resolve, reject) => {
-      getdata("Student-Transfer")
-        .then((res: any) => {
-          setTemp(Object.values(res));
-          resolve(res);
-        })
-        .catch((error: any) => {
-          reject(error);
-        });
-    });
-  };
-
-  useEffect(() => {
-    fetchStudentData()
-      .then(() => {
-        console.log("Data fetched successfully");
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }, []);
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    event:any
+  ) => {
     const { name, value } = event.target;
     setFormValues((prevValues) => ({
       ...prevValues,
       [name]: value,
     }));
   };
+  useEffect(()=>{
+    getdata("Student").then((res)=>{
+      console.log(res)
+    }).catch((error)=>{console.log(error,"error hai")})
+    
+  },[])
 
-  const handleSubmit = () => {
-    sentdata("Student-Transfer", formValues);
-    fetchStudentData()
-      .then(() => {
-        console.log("Data submitted and fetched successfully");
-        setFormValues({
-          firstName: "",
-          middleName: "",
-          birthDate: "",
-          lastName: "",
-          fatherName: "",
-          motherName: "",
-          gender: "",
-          email: "",
-          section: "",
-          rollNumber: "",
-          class: "",
-        });
-      })
-      .catch((error) => {
-        console.error("Error submitting data:", error);
-      });
+  const handleSave = () => {
+    sentdata("Student", formValues, student.id).then(() => {
+      navigate("/Home/StudentAdd", { state: { formValues } });
+    }).catch((error) => {
+      console.log("Error updating student:", error);
+    });
   };
-
+  console.log({ id: student.id, ...formValues })
   return (
     <>
-      <h1 className="text-center fw-bold">Student Transfer</h1>
+      <h1 className="text-center fw-bold">Edit Student</h1>
       <Grid container className="Studentinp d-flex justify-content-center">
         <Grid item xs={5} md={3} lg={3}>
           <TextField
@@ -119,7 +77,7 @@ export default function StudentTransfer() {
           <TextField
             name="birthDate"
             label="Date of Birth"
-            type="date"
+            type="month"
             variant="outlined"
             margin="normal"
             sx={{ margin: 1, width: 150 }}
@@ -140,7 +98,6 @@ export default function StudentTransfer() {
           />
         </Grid>
       </Grid>
-
       <Grid container className="Studentinp d-flex justify-content-center">
         <Grid item xs={5} md={3} lg={3}>
           <TextField
@@ -243,25 +200,10 @@ export default function StudentTransfer() {
         </Grid>
       </Grid>
       <Box className="d-flex justify-content-center mt-3 flex-wrap">
-        <Button variant="contained" color="success" onClick={handleSubmit}>
-          Submit
+        <Button variant="contained" color="primary" onClick={handleSave}>
+          Save
         </Button>
       </Box>
-      <h1 className="text-center fw-bold mt-5">Transfer Student List</h1>
-      <CustomizedTables
-        temp={temp}
-        value1={"First Name"}
-        value2={"Middle Name"}
-        value3={"Last Name"}
-        value4={"Father Name"}
-        value5={"Mother Name"}
-        value6={"Gender"}
-        value7={"Email"}
-        value8={"Class"}
-        value9={"Roll no"}
-        value10={"Date of Birth"}
-        value11={"Section"}
-      />
     </>
   );
 }
