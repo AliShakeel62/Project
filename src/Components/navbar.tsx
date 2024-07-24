@@ -46,6 +46,8 @@ import FeeVouchner from "../Pages/Fees/Fee-Voucher";
 import SyllabusFrom from "../Pages/Syllabus/Syllabus-From";
 import Syllabuslist from "../Pages/Syllabus/Syllabus-list";
 import EditStudent from "../Pages/Student/Student-Edit";
+import Protects from "../Protected";
+import Dash from "../Pages/DashCom";
 const drawerWidth = 240;
 
 interface Props {
@@ -151,10 +153,6 @@ export default function ResponsiveDrawer(props: any) {
         {
           name: "StudentList",
           route: "StudentList",
-        },
-        {
-          name: "Studentedit",
-          route: "StudentEdit",
         },
         { name: "StudentTransfer", route: "StudentTransfer" },
       ],
@@ -264,7 +262,7 @@ export default function ResponsiveDrawer(props: any) {
   ]);
 
   const drawer = (
-    <div >
+    <div className="" >
       <Toolbar />
       <Divider />
       <SingleSelectTreeView Drawers={Drawers} />
@@ -442,7 +440,7 @@ export default function ResponsiveDrawer(props: any) {
               <AccountCircle />
             </IconButton>
           </Box>
-          <Box sx={{ display: { xs: "flex", md: "none" } }}>
+          <Box sx={{ display: { xs: "flex", md: "none" } ,  }}>
             <IconButton
               size="large"
               aria-label="show more"
@@ -460,7 +458,7 @@ export default function ResponsiveDrawer(props: any) {
       {renderMenu}
       <Box
         component="nav"
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 }  }}
+        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0  }   }}
         aria-label="mailbox folders"
         
       >
@@ -478,8 +476,7 @@ export default function ResponsiveDrawer(props: any) {
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
-            },
-          }}
+            }         }}
           
         >
           {drawer}
@@ -509,10 +506,11 @@ export default function ResponsiveDrawer(props: any) {
         <Toolbar />
         {/* Your main content goes here */}
         <Routes>
+        <Route path="Dashboard" element={<Protects Component={Dash} />} />
           <Route path="StudentTransfer" element={<TransferStudentScreen />} />
           <Route path="StudentAdd" element={<StudentAddEdit />} />
           <Route path="StudentEdit" element={<EditStudent />} />
-          <Route path="StudentList" element={<StudentList />} />
+          <Route path="StudentList" element={<StudentList/>} />
           <Route path="TeacherList" element={<TeacherList />} />
           <Route path="TeacherAdd" element={<TeacherAddEdit />} />
           <Route path="TeacherAllowcation" element={<TeacherAllocation />} />

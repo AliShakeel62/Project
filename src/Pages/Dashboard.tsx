@@ -6,9 +6,9 @@ import RadiosCom from '../Components/Radio'
 import GridCom from '../Components/Grid'
 import DialogCom from '../Components/Dialogbox'
 import BasicAlerts from '../Components/Alert'
+
 export default function Home(){
     return(<>
     <ResponsiveDrawer value1="Singup" path="/Singup" value2="Login" path2="/Login" />
-    <h1>Homes</h1>
     </>)
 }

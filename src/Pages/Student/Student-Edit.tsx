@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent, useEffect } from "react";
 import { Box, TextField, Grid, MenuItem, Button } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getdata, sentdata } from "../../Config/Firebasemethod";
+import { getdata, sentdata ,Editmethod } from "../../Config/Firebasemethod";
 
 interface StudentRecord {
   firstName: string;
@@ -32,6 +32,7 @@ export default function EditStudent() {
       [name]: value,
     }));
   };
+  console.log(student.id)
   useEffect(()=>{
     getdata("Student").then((res)=>{
       console.log(res)
@@ -40,13 +41,12 @@ export default function EditStudent() {
   },[])
 
   const handleSave = () => {
-    sentdata("Student", formValues, student.id).then(() => {
-      navigate("/Home/StudentAdd", { state: { formValues } });
-    }).catch((error) => {
-      console.log("Error updating student:", error);
-    });
+    Editmethod("Student", student.id , formValues ).then(() => { 
+        navigate("/Home/StudentAdd", { state: { formValues } });
+       }).catch((error) => {
+         console.log("Error updating student:", error);
+       });
   };
-  console.log({ id: student.id, ...formValues })
   return (
     <>
       <h1 className="text-center fw-bold">Edit Student</h1>

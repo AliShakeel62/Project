@@ -1,3 +1,46 @@
-/* .Studentinp{
+/* .Dame2{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('./Pictures/BGimg.jpg');
+    background-size: cover;
+    background-position: center;
+  } */
+ .Dame2{
+    height: 100vh;
+ }  
+.signup-page {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('Pictures/BGimg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 
-} */
+.signup-form {
+  background-color: rgba(235, 231, 231, 0.8);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30vw;
+  height: 10vh;
+}
+.transparent-drawer {
+    background-color: transparent !important;
+    box-shadow: none;
+  }
+  /* @media{min-width= "599px"}(
+    .box-con{
+margin-left: 0%;
+    }
+  )
+   */

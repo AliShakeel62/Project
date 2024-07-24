@@ -9,6 +9,8 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
+import EditIcon from '@mui/icons-material/Edit';
+import {IconButton} from "@mui/material"
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -74,7 +76,9 @@ export default function CustomizedTables(props: any) {
               <StyledTableCell align="center">{row.section}</StyledTableCell>
               <StyledTableCell align="center">
                 <Button variant="contained" color="primary" onClick={() => handleEdit(row)}>
-                  Edit
+                 
+                 <EditIcon/>
+        
                 </Button>
               </StyledTableCell>
             </StyledTableRow>
